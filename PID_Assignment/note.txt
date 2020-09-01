@@ -1,0 +1,11 @@
+1.
+https://medium.com/@evanfang.hi/使用node-js撰寫express-api-連結以docker啟動的mysql資料庫-1617d7469ca9
+
+2.產品下拉式ＰＨＰ
+https://dotblogs.com.tw/jellycheng/2011/02/15/21379
+
+3.PHP利用下拉式選單(Select option)搭配JavaScript更新SQL資料
+https://dotblogs.com.tw/jellycheng/2010/12/17/20215
+
+4.如何讓PHP列出全部資料
+https://ithelp.ithome.com.tw/questions/10185303

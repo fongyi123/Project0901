@@ -1,0 +1,672 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<!-- <link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css"> -->
+		<script src="jquery/jquery-1.12.4.min.js"></script>
+		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+
+		<!--
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		-->
+
+		<script src="js/vardef.js"></script>	
+		<script src="js/login.js"></script>
+		<script src="js/meetinglist.js"></script>
+		<script src="js/camear.js"></script>
+		<script src="js/nameList.js"></script>		
+		<script src="js/userdata1.js"></script>
+		<script src="js/meetdata.js"></script>
+
+
+
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var loginready = storage.getItem('didLogin');
+				if(loginready == "True") {
+					location.href = "#pagemain";
+				} else {
+					location.href = "#pageone";
+				}
+			});
+		</script>
+			<style>
+				h4 {
+				    margin-top: 100px;
+				    margin-bottom: 100px;
+				    margin-right: 150px;
+				    margin-left: 80px;
+				    color: black;
+				    font-size:100px;
+				    font-family:Microsoft JhengHei;
+				}
+			.ui-icon-myicon:after {
+				background-image: url("iconimg.svg");
+			}
+			/* Fallback */
+			.ui-nosvg .ui-icon-myicon:after {
+				background-image: url("iconimg.png");
+			}	
+		</style>
+
+	</head>
+
+	<body>
+		<!--===============================    App開啟未登入時頁面     ======================================-->
+		<div data-role="page" id="pageone" style="background:url(img/p3.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h2>Beacon會議簽到系統</h2>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content">
+				<div class="intro" style="margin-top: 30%;margin-bottom:250px">
+					<h4>歡迎來到Beacon會議簽到系統</h4>
+					<h4>請大家登入</h4>
+				</div>
+				<a href="#pageLogin" data-role="button" data-inline="true" data-icon="bars" style="margin-left: 20%;">登入</a>
+				<a href="#pageNewuser" data-role="button" data-inline="true" data-icon="plus">註冊</a>
+			</div>	<!-- /div main -->
+		</div> <!-- /pageone -->
+
+	
+
+
+		<!--===============================    帳號註冊頁面     ======================================-->
+		<div data-role="page" id="pageNewuser" style="background:url(img/p5.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h2>帳號註冊</h2>
+				<a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">back</a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content">
+				<form id='newUserdata'>
+					<fieldset>
+						<INPUT TYPE='text' id='nidname'  placeholder="帳號.."></INPUT>
+						<INPUT TYPE='text' id='nName'  placeholder="使用者名稱.."></INPUT>
+						<INPUT TYPE='password' id='npassword1' placeholder="密碼.."></INPUT>
+						<INPUT TYPE='password' id='npassword2' placeholder="密碼確認.."></INPUT>
+						<INPUT TYPE='text' id='nemail' placeholder="電子郵件.."></INPUT>
+						<INPUT TYPE='text' id='nmobile' placeholder="行動電話.."></INPUT>
+					</fieldset>
+					<button TYPE='button' onClick='newUser();'>註冊</button>
+				</form>
+			</div>	 <!-- /div main -->
+
+		</div> <!-- /pageNewuser -->
+
+		
+		<!--===============================    登入頁面     ======================================-->
+		<div data-role="page" id="pageLogin" style="background:url(img/p10.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h2>登入</h2>
+				<a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">back</a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content">
+				<form id='logindata'>
+					<fieldset>
+						<INPUT TYPE='text' id='lidname'  placeholder="帳號.."></INPUT>
+						<INPUT TYPE='password' id='lpassword' placeholder="密碼.."></INPUT>
+					</fieldset>
+					<button TYPE='button' onClick='login();'>登入</button>
+				</form>
+			</div>	 <!-- /div main -->
+
+		</div> <!-- /pageLogin -->
+
+
+		<!--===============================    登入後首頁     ======================================-->
+		<div data-role="page" id="pagemain" style="background:url(img/p13.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議簽到系統主頁</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname">
+				<script>document.write(storage.getItem("uidname"));</script></div></a>		
+			</div>	<!-- /header -->
+			<div data-role="main" class="ui-content" style="height:auto">
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#Documentation1" data-role="button" data-icon="cloud" onClick="meetinglist();">會議總攬</a></li>
+						<li><a href="#Documentation2" data-role="button" data-icon="comment" onClick="">發起會議</a></li>
+						<li><a href="#Documentation3" data-role="button" data-icon="user"  onClick="userdata1();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+
+			<!--===============================    主頁後Documentation1     ======================================-->
+		<div data-role="page" id="Documentation1" style="background:url(img/p16.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議總攬</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname1">
+				<script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="#"  class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" data-rel="back">back</a>
+				
+			</div>	<!-- /header -->
+
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+			
+
+			   <li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">
+				    <h2>排序</h2>
+				    <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false">
+				      	<li><a href="#"  data-role="button" data-icon="cloud" onClick="meetinglistdate();">時間排序</a></li>
+						<li><a href="#" data-role="button" data-icon="comment" onClick="meetinglistdepID();">部門排序</a></li>
+						<li><a href="#" data-role="button" data-icon="user"  onClick="0();">會議狀態已完成</a></li>
+						<li><a href="#" data-role="button" data-icon="user"  onClick="0();">會議狀態未完成</a></li>
+						<li><a href="#" data-role="button" data-icon="user"  onClick="0();">會議狀態進行中</a></li>
+				    </ul>
+				  </li>
+			
+			 		<div id="Documentation12" style="padding-top: 20px"></div>
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#Documentation1"  data-role="button" data-icon="cloud" onClick="meetinglist();">會議總攬</a></li>
+						<li><a href="#Documentation2" data-role="button" data-icon="comment" onClick="searchStudent();">發起會議</a></li>
+						<li><a href="#Documentation3" data-role="button" data-icon="user"  onClick="userdata1();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+		<!--===============================    主頁後Documentation2    ======================================-->
+		<div data-role="page" id="Documentation2" style="background:url(img/p0.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>創建會議</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="#"  class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" data-rel="back">back  </a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+					
+					<form id='newUserdata'>
+
+						<fieldset>
+								<select name"select_meet  id='select_meet'>
+									<option value="0">選擇會議開會天數</option>
+									<option value="1">選擇會議開會天數一天</option>
+									<option value="2">選擇會議開會天數二天</option>
+									<option value="3">選擇會議開會天數三天</option>
+									<option value="4">選擇會議開會天數四天</option>
+									<option value="5">選擇會議開會天數五天</option>
+									<option value="6">選擇會議開會天數六天</option>
+									<option value="7">選擇會議開會天數七天</option>
+								</select>
+								<h2>
+									會議日期(起):<INPUT TYPE='date' id='meetdate1'  value="" ></INPUT>
+									會議日期(迄):<INPUT TYPE='date' id='meetdate2'  value="" ></INPUT>
+									會議主題:<INPUT TYPE='text' id='meettheme' value="" ></INPUT>
+								   	地    點:<INPUT TYPE='text' id='meetlocation' value=""></INPUT>
+						            主辦單位:<INPUT TYPE='text' id='meettowner' value="" ></INPUT>
+						            會議議程:<a href="#Documentation2table" data-role="button" data-inline="true" data-icon="plus">議程設定</a>
+						            <div id="meetdatatable1" style="padding-top: 20px; color: red;"></div>
+						            <br>
+						            
+						            相關文件:<INPUT TYPE='file' id='meetfile' value="" ></INPUT>
+					            </h2>
+
+							<!-- <table width="300" border="1">
+							<h2>會議議程:</h2>
+							　<tr>
+							　<td>這裡是第一個欄位</td>
+
+							　<td><h2><INPUT name='meettime[]' TYPE='time'  id='meettime' value='' ></h2></td>
+							  <td><h2><INPUT name='meetthing[]' TYPE='text'  id='meetthing' value='' ></h2></td>
+							　</tr>
+							</table> -->
+							<!-- 這邊設定table的id 讓javascript用 -->
+						 	
+						
+						</fieldset>
+						
+
+					          <!--  <h2>會議TEST:<INPUT TYPE='file' id='meet' value="" ></h2>
+					           <h1>性　　別:<INPUT TYPE='text' id='usex' value="" ></h1>
+					           <h1>電子信箱:<INPUT TYPE='text' id='uemail' value=""></h1>
+							   <h1>手機號碼:<INPUT TYPE='text' id='umobile' value=""></h1> -->
+						<button TYPE='button' onClick='meetdata();'>確定新增 </button>
+					</form>
+
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#Documentation1"  data-role="button" data-icon="cloud" onClick="meetinglist();">會議總攬</a></li>
+						<li><a href="#Documentation2" data-role="button" data-icon="comment" onClick="searchStudent();">發起會議</a></li>
+						<li><a href="#Documentation3" data-role="button" data-icon="user"  onClick="userdata1();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+
+<!--===============================    主頁後Documentation2table     ======================================-->
+		<div data-role="page" id="Documentation2table" style="background:url(img/p0.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>議程設定</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="#"  class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" data-rel="back">back</a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+					<div id="meettable" style="padding-top: 20px">  <!-- /userdata顯示區塊 -->
+						
+						
+							<form name='frmSchedule' id='frmSchedule'>
+
+								<table id="mytable" width="800" border="1" align="center" cellpadding="0" cellspacing="0" >
+									 <tr>
+										<td width="200" class="td01">時間</td>
+										<td width="200" class="td01">行程</td>
+										<td width="200" class="td01">表單新增</td>
+										<td width="200" class="td01">表單刪除</td>
+									</tr>
+									<tr>
+										 <td>
+										<h2><INPUT name='meettime[]' TYPE='time' value='' ></INPUT></h2>
+									    </td>
+										<td>
+										<h2><INPUT name='meetthing[]' TYPE='text'  value='' ></INPUT></h2>
+									</td>
+										 <td>
+										 <h2><button type="button" value="增加" onclick="add_new_data()">增加 </button></h2>
+									 </td>
+									     <td>
+										 <h2><button type="button" value="減少" onclick="remove_data()">減少</button></h2>
+										 </td>
+									</tr>
+								</table>														
+								
+							   		<input type='button' name='submit' value='顯示議程' onclick='processFormData();' />
+							  
+							  
+							</form>
+
+							<script>
+							
+								function add_new_data() {
+									var num = document.getElementById("mytable").rows.length;
+									var Tr = document.getElementById("mytable").insertRow(num);
+									Td = Tr.insertCell(Tr.cells.length);
+									Td.innerHTML =   '<h2><input name="meettime[]" type="time"   ></h2>';
+									Td = Tr.insertCell(Tr.cells.length);
+									Td.innerHTML =   '<h2><input name="meetthing[]"  type="text" ></h2>';
+									Td = Tr.insertCell(Tr.cells.length);
+									Td.innerHTML =   '<h2><button type="button" value="增加" onclick="add_new_data()">增加 </button></h2>';
+									Td = Tr.insertCell(Tr.cells.length);
+									Td.innerHTML =   '<h2><button type="button" value="減少" onclick="remove_data()">減少</button></h2>';
+								
+
+
+ 									var x= $("#form" ).serializeArray();
+ 									console.log(x);
+     									event.preventDefault();
+
+								}
+
+								function remove_data() {
+									var num = document.getElementById("mytable").rows.length;
+									if(num >2)
+								    	document.getElementById("mytable").deleteRow(-1);
+								}
+							</script>
+
+							<div id="meetdataList" style="padding-top: 20px"></div>
+
+
+					</div>
+					<button TYPE='button' onClick='processFormData2();'>設定完畢 </button>
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#Documentation1"  data-role="button" data-icon="cloud" onClick="meetinglist();">會議總攬</a></li>
+						<li><a href="#Documentation2" data-role="button" data-icon="comment" onClick="searchStudent();">發起會議</a></li>
+						<li><a href="#Documentation3" data-role="button" data-icon="user"  onClick="userdata1();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+		<!--===============================    主頁後Documentation3     ======================================-->
+		<div data-role="page" id="Documentation3" style="background:url(img/p16.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon帳戶資訊</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="#"  class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" data-rel="back">back</a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+					<div id="Documentation14" style="padding-top: 20px">  <!-- /userdata顯示區塊 -->
+						
+					
+					</div>
+				<button TYPE='button' onClick='updatauser();'>保存修改 </button>
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#Documentation1"  data-role="button" data-icon="cloud" onClick="meetinglist();">會議總攬</a></li>
+						<li><a href="#Documentation2" data-role="button" data-icon="comment" onClick="searchStudent();">發起會議</a></li>
+						<li><a href="#Documentation3" data-role="button" data-icon="user"  onClick="userdata1();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+		<!--===============================    主頁後Documentation1後首頁 DocumentationPage1   ======================================-->
+		<div data-role="page" id="DocumentationPage1" style="background:url(img/meeting1.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議總攬</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="index.html.#pagemain"   class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home" data-rel="home">HOME</a>
+					<div data-role="navbar">
+					<ul>
+						<li><a href="#DocumentationPage1" data-role="button"   onClick="no();">資訊</a></li>
+						<li><a href="#DocumentationPage2" data-role="button"   onClick="no();">文件</a></li>
+						<li><a href="#DocumentationPage3" data-role="button"   onClick="no();">簽到</a></li>
+						<li><a href="#DocumentationPage4" data-role="button"   onClick="no();">紀錄</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">		 	
+					
+			 	<div id="DocumentationPage11" style="padding-top: 20px"></div>
+						  
+			</div>	<!-- /main -->
+		</div>	<!-- /pagemain -->
+
+		<!--===============================    主頁後Documentation1後首頁 DocumentationPage2      ======================================-->
+		<div data-role="page" id="DocumentationPage2" style="background:url(img/meeting1.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議總攬</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="index.html.#pagemain"   class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home" data-rel="home">HOME</a>
+					<div data-role="navbar">
+					<ul>
+						<li><a href="#DocumentationPage1" data-role="button"   onClick="no();">資訊</a></li>
+						<li><a href="#DocumentationPage2" data-role="button"   onClick="no();">文件</a></li>
+						<li><a href="#DocumentationPage3" data-role="button"   onClick="no();">簽到</a></li>
+						<li><a href="#DocumentationPage4" data-role="button"   onClick="no();">紀錄</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">		 	
+						 
+				<hr>
+				<h1>2015年終間討會議資料</h1>
+			    <h2>詹小宜</h2>
+			    <h2>xxxx</h2>
+			    <h2>xxxxxxxxxxx</h2>
+			    <h2>xxxxxxxxx</h2>
+				<hr>				   
+						  
+			</div>	<!-- /main -->
+		</div>	<!-- /pagemain -->
+		
+
+		<!--===============================    主頁後Documentation1後首頁 DocumentationPage3    ======================================-->
+		<div data-role="page" id="DocumentationPage3" style="background:url(img/meeting1.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議總攬</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+				<a href="index.html.#pagemain"   class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home" data-rel="home">HOME</a>
+					<div data-role="navbar">
+					<ul>
+						<li><a href="#DocumentationPage1" data-role="button"   onClick="no();">資訊</a></li>
+						<li><a href="#DocumentationPage2" data-role="button"   onClick="no();">文件</a></li>
+						<li><a href="#DocumentationPage3" data-role="button"   onClick="no();">簽到</a></li>
+						<li><a href="#DocumentationPage4" data-role="button"   onClick="no();">紀錄</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">		 	
+						 
+				<hr>
+				<h2>本會議已於</h2>
+			    <h2>12/25上午8:45簽到完成</h2>
+			    <h1>會議名單</h1></BR>
+
+			    <h2>王怡婷 經理 O</h2>
+			    <h2>王怡婷 經理 O</h2>
+			    <h2>王怡婷 經理 O</h2>
+			    <h2>王怡婷 經理 O</h2>
+			    <h2>王怡婷 經理 O</h2>
+			    <h2>王怡婷 經理 O</h2>
+
+			    <h2>12/25上午8:45未簽到完成</h2>
+			    <h1>會議名單</h1></BR>
+			    <h2>王怡婷 經理 X</h2>
+			    <h2>王怡婷 經理 X</h2>
+			    <h2>王怡婷 經理 X</h2>
+			    <h2>王怡婷 經理 X</h2>
+			    <h2>王怡婷 經理 X</h2>
+				<hr>				   
+						  
+			</div>	<!-- /main -->
+
+		</div>	<!-- /pagemain -->
+
+
+		<!--===============================    主頁後Documentation1後首頁 DocumentationPage4    ======================================-->
+			<div data-role="page" id="DocumentationPage4" style="background:url(img/meeting1.jpg) no-repeat; background-size: 100% 100%">
+				<div data-theme="b" data-role="header">
+					<h1>Beacon會議總攬</h1>
+					<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname"><script>document.write(storage.getItem("uidname"));</script></div></a>
+					<a href="index.html.#pagemain"   class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home" data-rel="home">HOME</a>
+						<div data-role="navbar">
+						<ul>
+							<li><a href="#DocumentationPage1" data-role="button"   onClick="no();">資訊</a></li>
+							<li><a href="#DocumentationPage2" data-role="button"   onClick="no();">文件</a></li>
+							<li><a href="#DocumentationPage3" data-role="button"   onClick="no();">簽到</a></li>
+							<li><a href="#DocumentationPage4" data-role="button"   onClick="no();">紀錄</a></li>
+						</ul>
+					</div> <!-- /navbar -->
+				</div>	<!-- /header -->
+				
+				<div data-role="main" class="ui-content" style="height:auto">		 	
+							 
+					<hr>
+					<h2>時間：12/28(一)9：00</h2>
+		    		<h2>地點：辦公大樓1201會議室</h2>
+					<hr>				   
+							  
+				</div>	<!-- /main -->
+			</div>	<!-- /pagemain -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+<!--===============================    上課練習用登入後首頁     ======================================-->
+		<div data-role="page" id="pagemain1" style="background:url(img/p7.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Cordova學習</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname">已登入</div></a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#pageCourses" data-role="button" data-icon="bullets" onClick="listCourse();">課程列表</a></li>
+						<li><a href="#pageStudent" data-role="button" data-icon="search" onClick="searchStudent();">學生查詢</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+		<!--===============================    上課練習課程清單頁     ======================================-->
+		<div data-role="page" id="pageCourses" style="background:url(img/p9.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();">
+				<div id="unameCourse"><script>document.write(storage.getItem("uid"));</script></div></a>
+				<h1>課程列表</h1>
+			</div>	<!-- /header -->
+
+			<div data-role="main" class="ui-content" style="height:auto">
+				<div id="courseList" style="padding-top: 20px"></div>
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" data-role="button" data-icon="bullets" class="ui-btn-active ui-state-persist" onClick="listCourse();">課程列表</a></li>
+						<li><a href="#pageStudent" data-role="button" data-icon="search">學生查詢</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div> <!-- /pageCourses -->
+
+		<!--===============================    上課練習用相機首頁     ======================================-->
+		<div data-role="page" id="pageCamear" style="background:url(img/p7.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Cordova學習</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname">已登入</div></a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+				<div>
+			      <img style="display:none;width:70%;height:auto;margin:auto;margin-top:10px;" id="largeImage" src="" />
+			    </div>
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="" data-role="button" data-icon="bullets" onClick="capturePhoto();">相機</a></li>
+						<li><a href="" data-role="button" data-icon="search" onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">相簿</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+
+
+
+	</body>
+</html>
+

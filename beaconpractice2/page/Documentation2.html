@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
+		<script src="jquery/jquery-1.12.4.min.js"></script>
+		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+
+		<script src="js/vardef.js"></script>
+		<script src="js/login.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var loginready = storage.getItem('didLogin');
+				if(loginready == "True") {
+					location.href = "#pagemain";
+				} else {
+					location.href = "index.html.#pageone";
+				}
+			});
+		</script>
+			<style>
+				h4 {
+				    border: 1px solid black;
+				    margin-top: 100px;
+				    margin-bottom: 100px;
+				    margin-right: 150px;
+				    margin-left: 80px;
+				    background-color: lightblue;
+				    color: red;
+				}
+		</style>
+	</head>
+
+	<body>
+
+
+		<!--===============================    主頁後Documentation2    ======================================-->
+		<div data-role="page" id="pagemain1" style="background:url(img/p0.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議紀錄</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname">已登入</div></a>
+				<a href="#"  class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" data-rel="back">back</a>
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">
+					<h1>主頁page2</h1>
+					<ul>	
+						  <a  href="#/app/listtabs/listpage1">
+							    <hr>
+							    <h2>臨時緊急會議</h2>
+							    <p>12/15(二) 10：00</p>
+							    <p>10天前 參與人數：10</p>
+							    <hr>
+						  </a>							  
+					</ul>  
+
+
+			</div>	<!-- /main -->
+	
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="Documentation1.html" data-role="button" data-icon="cloud" onClick="listCourse();">會議總攬</a></li>
+						<li><a href="Documentation2.html" data-role="button" data-icon="comment" onClick="searchStudent();">會議紀錄</a></li>
+						<li><a href="Documentation3.html" data-role="button" data-icon="user"  onClick="searchStudent();">帳戶資訊</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div> <!-- /footer -->
+		</div>	<!-- /pagemain -->
+
+
+	</body>
+</html>

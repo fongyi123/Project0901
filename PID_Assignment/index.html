@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试Option选择事件</title>
+ 
+    <script type="text/javascript">
+        /**
+         * 第一个参数为下拉列表的id
+         * 第二个参数为点击option的回调函数
+         * @param idSelector
+         * @param callFunc
+         */
+        function addEventHandle(idSelector, callFunc) {
+            var o = document.getElementById(idSelector);
+            if (!o) return;
+            (function() {
+                        o.onclick = function() {
+                            var evt = window.event;
+                            var selectObj = evt ? evt.srcElement : null;
+                            // IE Only
+                            if (evt && selectObj && evt.offsetY && evt.button != 2 && (evt.offsetY > selectObj.offsetHeight || evt.offsetY < 0)) {
+                                setTimeout(function() {
+                                    var option = selectObj.options[selectObj.selectedIndex];
+                                    callFunc(option)
+                                }, 60);
+                            }
+                        }
+                    }
+            )();
+        }
+ 
+        /**
+         * 回调函数
+         * @param option
+         */
+        function clickFunc(option) {
+            var val = option.getAttribute('value');
+            console.log(val);
+            alert(val);
+        }
+ 
+        window.onload = function() {
+            //给selector绑定option点击
+            addEventHandle("selector", clickFunc);
+        }
+    </script>
+ 
+</head>
+<body>
+    <div style="width: 500px;height: 180px;text-align: center;margin: 200px auto;padding: 0px 40px 0px 40px">
+        <select id="selector" style="width: 200px;padding: 5px 2px 10px 5px;">
+            <option value="我是第一个option">第一个option</option>
+            <option value="我是第二个option">第二个option</option>
+        </select>
+    </div>
+</body>
+</html>

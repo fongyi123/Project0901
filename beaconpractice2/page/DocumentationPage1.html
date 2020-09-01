@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
+		<script src="jquery/jquery-1.12.4.min.js"></script>
+		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+
+		<script src="js/login.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var loginready = storage.getItem('didLogin');
+				if(loginready == "True") {
+					location.href = "#pagemain";
+				} else {
+					location.href = "index.html.#pageone";
+				}
+			});
+		</script>
+			<style>
+				h4 {
+				    border: 1px solid black;
+				    margin-top: 100px;
+				    margin-bottom: 100px;
+				    margin-right: 150px;
+				    margin-left: 80px;
+				    background-color: lightblue;
+				    color: red;
+				}
+		</style>
+	</head>
+
+	<body>
+
+
+		<!--===============================    主頁後Documentation1後首頁 DocumentationPage1   ======================================-->
+		<div data-role="page" id="pagemain1" style="background:url(img/p0.jpg) no-repeat; background-size: 100% 100%">
+			<div data-theme="b" data-role="header">
+				<h1>Beacon會議總攬</h1>
+				<a href="#" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user" onClick="logout();"><div id="uname">已登入</div></a>
+				<a href="index.html.#pagemain"   class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home" data-rel="home">HOME</a>
+					<div data-role="navbar">
+					<ul>
+						<li><a href="DocumentationPage1.html" data-role="button"   onClick="no();">資訊</a></li>
+						<li><a href="DocumentationPage2.html" data-role="button"   onClick="no();">文件</a></li>
+						<li><a href="DocumentationPage3.html" data-role="button"   onClick="no();">簽到</a></li>
+						<li><a href="DocumentationPage4.html" data-role="button"   onClick="no();">紀錄</a></li>
+					</ul>
+				</div> <!-- /navbar -->
+			</div>	<!-- /header -->
+			
+			<div data-role="main" class="ui-content" style="height:auto">		 	
+						 
+				<hr>
+				<h2>時間：12/28(一)9：00</h2>
+	    		<h2>地點：辦公大樓1201會議室</h2>
+				<hr>				   
+						  
+			</div>	<!-- /main -->
+
+		</div>	<!-- /pagemain -->
+
+
+	</body>
+</html>
